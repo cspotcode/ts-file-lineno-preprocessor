@@ -19,3 +19,9 @@ Becomes:
 // the code happens on line 3
 logger.reportDiagnostics('hello world', ({FILE: "/home/cspotcode/projects/example/index.ts", LINENO: 3}));
 ```
+
+## Caveats
+
+This preprocessing is accomplished with find-and-replace *before* any sourcemaps are generated.  The replacements are always one-liners so they never affect line numbers.  However, they do vary in width, so the sourcemapped column positions of anything to the *right* if `__SOURCE_POSITION__` will be wrong.  In the example above, this is not a problem because there is nothing interesting to the right.
+
+The benefits of this limitation are a *much* simpler preprocessor.
